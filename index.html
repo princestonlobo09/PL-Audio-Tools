@@ -249,24 +249,19 @@
             box-shadow: none;
         }
 
-        /* === ABOUT & PORTFOLIO FLEXBOX === */
-        .split-section {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 3rem;
+        /* === ABOUT SECTION (CENTERED LAYOUT) === */
+        .about-section {
             background: var(--white);
-            padding: 3rem;
+            padding: 4rem 3rem;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             margin-bottom: 4rem;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .about-content, .portfolio-content {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        /* UPDATED PHOTO STYLING */
         .about-photo {
             display: block;
             width: 200px;
@@ -278,46 +273,16 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
-        .split-section h3 {
-            font-size: 1.8rem;
+        .about-section h3 {
+            font-size: 2rem;
             color: var(--lavender-dark);
-            margin-bottom: 1rem;
-        }
-
-        .portfolio-list {
-            list-style: none;
             margin-bottom: 1.5rem;
         }
-
-        .portfolio-list li {
-            padding: 10px 0;
-            border-bottom: 1px solid var(--lavender-light);
-            color: var(--text-main);
-            font-weight: 500;
-        }
-
-        .portfolio-list li::before {
-            content: '🎵 ';
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 1rem;
-        }
-
-        .btn-outline {
-            border: 2px solid var(--lavender-primary);
-            color: var(--lavender-primary);
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .btn-outline:hover {
-            background: var(--lavender-primary);
-            color: var(--white);
+        
+        .about-section p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
         }
 
         /* === CONTACT FORM === */
@@ -368,7 +333,7 @@
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .hero h1 { font-size: 2.5rem; }
-            .split-section { padding: 2rem; }
+            .about-section { padding: 2rem; }
             .about-photo { max-width: 150px; height: 150px; }
         }
     </style>
@@ -434,29 +399,12 @@
         </section>
         <br><br><br>
 
-        <!-- ABOUT & PORTFOLIO -->
-        <section id="about" class="split-section">
-            <div class="about-content">
-                <h3>About Princeston Lobo</h3>
-                <img src="WhatsApp Image 2026-04-06 at 10.50.27 AM.jpeg" alt="Princeston Lobo Portrait" class="about-photo">
-                <p>Princeston Lobo is an independent artist and engineering student blending deep learning technologies with modern music production workflows.</p>
-                <br>
-                <p>With a background researching medical imaging technologies and automated detection systems, Princeston applies complex engineering principles to software development. From performing with <em>The Dolphins - Band & Choir</em> to developing offline Windows applications for audio separation, he builds powerful utilities tailored for independent musicians and recording studios.</p>
-            </div>
-            
-            <div class="portfolio-content">
-                <h3>Independent Discography</h3>
-                <p style="margin-bottom: 1rem; color: var(--text-muted);">Stream recent releases:</p>
-                <ul class="portfolio-list">
-                    <li>Argan Tuka Somiya</li>
-                    <li>Kalzan Tavn Mog Kelo</li>
-                    <li>Jezun Aplya Shisanso</li>
-                </ul>
-                <div class="social-links">
-                    <a href="https://music.apple.com/us/artist/princeston-lobo/1675257360" target="_blank" class="btn-outline">Apple Music</a>
-                    <a href="https://www.youtube.com/" target="_blank" class="btn-outline">YouTube</a>
-                </div>
-            </div>
+        <!-- ABOUT (CENTERED) -->
+        <section id="about" class="about-section">
+            <img src="WhatsApp Image 2026-04-06 at 10.50.27 AM.jpeg" alt="Princeston Lobo Portrait" class="about-photo">
+            <h3>About Princeston Lobo</h3>
+            <p>Princeston Lobo is an independent artist and engineering student blending deep learning technologies with modern music production workflows.</p>
+            <p>With a background researching medical imaging technologies and automated detection systems, Princeston applies complex engineering principles to software development. From performing with <em>The Dolphins - Band & Choir</em> to developing offline Windows applications for audio separation, he builds powerful utilities tailored for independent musicians and recording studios.</p>
         </section>
 
         <!-- CONTACT FORM -->
