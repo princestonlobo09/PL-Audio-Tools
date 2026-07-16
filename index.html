@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PL Audio Tools | Princeston Lobo</title>
+    <!-- Load FontAwesome for Social Media Logos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         /* === COLOR PALETTE & GLOBAL STYLES === */
         :root {
@@ -285,6 +288,25 @@
             margin-bottom: 1rem;
         }
 
+        /* Social Icons Grid */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 2.5rem;
+        }
+
+        .social-icon {
+            font-size: 2rem;
+            color: var(--lavender-primary);
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .social-icon:hover {
+            color: var(--lavender-dark);
+            transform: translateY(-4px);
+        }
+
         /* === CONTACT FORM === */
         .contact-form {
             max-width: 600px;
@@ -335,6 +357,8 @@
             .hero h1 { font-size: 2.5rem; }
             .about-section { padding: 2rem; }
             .about-photo { max-width: 150px; height: 150px; }
+            .social-links { gap: 20px; }
+            .social-icon { font-size: 1.8rem; }
         }
     </style>
 </head>
@@ -405,6 +429,22 @@
             <h3>About Princeston Lobo</h3>
             <p>Princeston Lobo is an independent artist and engineering student blending deep learning technologies with modern music production workflows.</p>
             <p>With a background researching medical imaging technologies and automated detection systems, Princeston applies complex engineering principles to software development. From performing with <em>The Dolphins - Band & Choir</em> to developing offline Windows applications for audio separation, he builds powerful utilities tailored for independent musicians and recording studios.</p>
+            
+            <!-- SOCIAL MEDIA LINKS -->
+            <div class="social-links">
+                <a href="https://www.instagram.com/princeton.lobo?igsh=b2twa241Z2M1b3V1" target="_blank" class="social-icon" title="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://www.facebook.com/princeston.lobo?mibextid=ZbWKwL" target="_blank" class="social-icon" title="Facebook">
+                    <i class="fa-brands fa-facebook"></i>
+                </a>
+                <a href="https://open.spotify.com/artist/58lMG9hqVXXP1lmcqkiOhV?si=pyOBlgYnQA6cm0v0QUZ5dg" target="_blank" class="social-icon" title="Spotify">
+                    <i class="fa-brands fa-spotify"></i>
+                </a>
+                <a href="https://whatsapp.com/channel/0029VaS96J7DzgTA98rjpS2x" target="_blank" class="social-icon" title="WhatsApp Channel">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+            </div>
         </section>
 
         <!-- CONTACT FORM -->
