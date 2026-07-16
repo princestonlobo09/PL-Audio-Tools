@@ -58,7 +58,7 @@
         }
 
         .logo img {
-            height: 60px; /* New size for new logo */
+            height: 60px;
             width: auto;
             border-radius: 5px;
         }
@@ -266,9 +266,12 @@
             min-width: 300px;
         }
 
+        /* UPDATED PHOTO STYLING */
         .about-photo {
             display: block;
-            max-width: 200px;
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
             border-radius: 50%;
             margin: 0 auto 2rem auto;
             border: 5px solid var(--lavender-light);
@@ -366,7 +369,7 @@
             .nav-links { display: none; }
             .hero h1 { font-size: 2.5rem; }
             .split-section { padding: 2rem; }
-            .about-photo { max-width: 150px; }
+            .about-photo { max-width: 150px; height: 150px; }
         }
     </style>
 </head>
