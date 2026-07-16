@@ -2,19 +2,521 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>PL Audio Tools</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PL Audio Tools | Princeston Lobo</title>
     <style>
-        body { font-family: sans-serif; background-color: #f4f5fc; color: #2c3e50; text-align: center; padding: 50px; }
-        .container { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); max-width: 600px; margin: auto; }
-        h1 { color: #4a569d; }
-        .btn { background: #7f7fd5; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block; margin-top: 20px; }
+        /* === COLOR PALETTE & GLOBAL STYLES === */
+        :root {
+            --lavender-dark: #4A569D;
+            --lavender-primary: #7F7FD5;
+            --lavender-light: #E6E6FA;
+            --lavender-bg: #F9F9FF;
+            --white: #FFFFFF;
+            --text-main: #2C3E50;
+            --text-muted: #6C7A89;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--lavender-bg);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--lavender-primary);
+        }
+
+        /* === NAVIGATION === */
+        nav {
+            background: var(--white);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--lavender-dark);
+        }
+
+        .logo img {
+            height: 40px;
+            /* Placeholder for your image_4de404.png or logo.png */
+        }
+
+        .nav-links a {
+            margin-left: 20px;
+            font-weight: 600;
+            color: var(--text-main);
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--lavender-primary);
+        }
+
+        /* === HERO SECTION === */
+        .hero {
+            background: linear-gradient(135deg, var(--lavender-light) 0%, var(--lavender-bg) 100%);
+            padding: 6rem 5%;
+            text-align: center;
+            border-bottom: 2px solid var(--white);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: var(--lavender-dark);
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .btn-primary {
+            background-color: var(--lavender-primary);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            display: inline-block;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(127, 127, 213, 0.4);
+            color: var(--white);
+        }
+
+        /* === MAIN CONTAINER & SECTIONS === */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: var(--lavender-dark);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 60px;
+            height: 4px;
+            background: var(--lavender-primary);
+            display: block;
+            margin: 10px auto 0 auto;
+            border-radius: 2px;
+        }
+
+        /* === TOOLS GRID === */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .tool-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid var(--lavender-light);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .status-badge {
+            align-self: flex-start;
+            background: var(--lavender-light);
+            color: var(--lavender-dark);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .status-badge.coming-soon {
+            background: #EEEEEE;
+            color: #888888;
+        }
+
+        .tool-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .tool-card p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        /* Audio Player UI */
+        .audio-player {
+            background: var(--lavender-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid var(--lavender-light);
+        }
+
+        .play-btn {
+            background: var(--lavender-primary);
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .progress-container {
+            flex-grow: 1;
+            height: 8px;
+            background: #E0E0E0;
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--lavender-dark);
+            border-radius: 4px;
+            width: 0%;
+        }
+
+        .btn-buy {
+            display: block;
+            text-align: center;
+            width: 100%;
+        }
+
+        .btn-disabled {
+            background-color: #CCCCCC;
+            color: #777777;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        .btn-disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* === ABOUT & PORTFOLIO FLEXBOX === */
+        .split-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 4rem;
+        }
+
+        .about-content, .portfolio-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .split-section h3 {
+            font-size: 1.8rem;
+            color: var(--lavender-dark);
+            margin-bottom: 1rem;
+        }
+
+        .portfolio-list {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .portfolio-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--lavender-light);
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        .portfolio-list li::before {
+            content: '🎵 ';
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 1rem;
+        }
+
+        .btn-outline {
+            border: 2px solid var(--lavender-primary);
+            color: var(--lavender-primary);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover {
+            background: var(--lavender-primary);
+            color: var(--white);
+        }
+
+        /* === CONTACT FORM === */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #CCC;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--lavender-primary);
+        }
+
+        /* === FOOTER === */
+        footer {
+            background: var(--lavender-dark);
+            color: var(--lavender-light);
+            text-align: center;
+            padding: 2rem 5%;
+            margin-top: 4rem;
+        }
+
+        /* === MOBILE RESPONSIVENESS === */
+        @media (max-width: 768px) {
+            .nav-links { display: none; /* Can add hamburger menu later if needed */ }
+            .hero h1 { font-size: 2.5rem; }
+            .split-section { padding: 2rem; }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>PL Audio Tools</h1>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="logo">
+            <!-- Replace 'logo.png' with your actual image file name if uploaded to GitHub -->
+            <img src="logo.png" alt="PL Logo" onerror="this.style.display='none'"> 
+            PL Audio Tools
+        </div>
+        <div class="nav-links">
+            <a href="#tools">Tools</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="hero">
+        <h1>High-Performance Audio Utilities</h1>
         <p>Next-generation, AI-powered audio tools designed to streamline workflows for independent artists and studio producers.</p>
-        <a href="#" class="btn">Explore Tools</a>
+        <a href="#tools" class="btn-primary">Explore The Suite</a>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        
+        <!-- AUDIO TOOLS STORE -->
+        <section id="tools">
+            <h2 class="section-title">The Engineering Catalogue</h2>
+            <div class="tools-grid">
+                
+                <!-- Tool 1: Stem Extractor -->
+                <div class="tool-card">
+                    <div class="status-badge">Available Now</div>
+                    <h3>PL Stem Extractor (v1.0)</h3>
+                    <p>An advanced offline Windows application built to cleanly isolate vocals, drums, bass, and instrumentals from any track. Zero server delays, pure production freedom right on your desktop.</p>
+                    
+                    <!-- Custom Audio Player -->
+                    <div class="audio-player">
+                        <button class="play-btn" id="playBtn1">▶</button>
+                        <div class="progress-container" id="progressContainer1">
+                            <div class="progress-bar" id="progressBar1"></div>
+                        </div>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">Preview</span>
+                        <!-- Hidden audio element (add your preview .mp3 link in the src) -->
+                        <audio id="audio1" src="preview_sample.mp3"></audio>
+                    </div>
+
+                    <a href="https://razorpay.me/@princestonlobo" target="_blank" class="btn-primary btn-buy">Purchase via Razorpay</a>
+                </div>
+
+                <!-- Tool 2: Noise Remover -->
+                <div class="tool-card">
+                    <div class="status-badge coming-soon">In Development</div>
+                    <h3>PL Intelligent Noise Remover</h3>
+                    <p>Next-generation algorithmic spectral subtraction software built to automatically strip studio environment hums and background room noise without damaging core frequencies.</p>
+                    <button class="btn-primary btn-buy btn-disabled" disabled>Coming Soon</button>
+                </div>
+
+            </div>
+        </section>
+        <br><br><br>
+
+        <!-- ABOUT & PORTFOLIO -->
+        <section id="about" class="split-section">
+            <div class="about-content">
+                <h3>About Princeston Lobo</h3>
+                <p>Princeston Lobo is an independent artist and engineering student blending deep learning technologies with modern music production workflows.</p>
+                <br>
+                <p>With a background researching medical imaging technologies and automated detection systems, Princeston applies complex engineering principles to software development. From performing with <em>The Dolphins - Band & Choir</em> to developing offline Windows applications for audio separation, he builds powerful utilities tailored for independent musicians and recording studios.</p>
+            </div>
+            
+            <div class="portfolio-content">
+                <h3>Independent Discography</h3>
+                <p style="margin-bottom: 1rem; color: var(--text-muted);">Stream recent releases:</p>
+                <ul class="portfolio-list">
+                    <li>Argan Tuka Somiya</li>
+                    <li>Kalzan Tavn Mog Kelo</li>
+                    <li>Jezun Aplya Shisanso</li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://music.apple.com/us/artist/princeston-lobo/1675257360" target="_blank" class="btn-outline">Apple Music</a>
+                    <a href="https://www.youtube.com/" target="_blank" class="btn-outline">YouTube</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT FORM -->
+        <section id="contact">
+            <h2 class="section-title">Get in Touch</h2>
+            <div class="contact-form">
+                <!-- Using Formspree as a free static form handler. Replace YOUR_EMAIL with your formspree endpoint later -->
+                <form action="https://formspree.io/f/YOUR_ENDPOINT" method="POST">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required placeholder="you@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required placeholder="Inquire about tools, collaborations, or support..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" style="width: 100%;">Send Message</button>
+                </form>
+            </div>
+        </section>
+
     </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 PL Audio Tools. Engineered independently by Princeston Lobo.</p>
+    </footer>
+
+    <!-- JAVASCRIPT FOR AUDIO PLAYER -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const audio = document.getElementById('audio1');
+            const playBtn = document.getElementById('playBtn1');
+            const progressContainer = document.getElementById('progressContainer1');
+            const progressBar = document.getElementById('progressBar1');
+
+            // Play / Pause Toggle
+            playBtn.addEventListener('click', () => {
+                if (audio.paused) {
+                    audio.play();
+                    playBtn.innerHTML = '⏸'; // Pause icon
+                } else {
+                    audio.pause();
+                    playBtn.innerHTML = '▶'; // Play icon
+                }
+            });
+
+            // Update Progress Bar as audio plays
+            audio.addEventListener('timeupdate', () => {
+                const percent = (audio.currentTime / audio.duration) * 100;
+                progressBar.style.width = `${percent}%`;
+            });
+
+            // Click on progress bar to seek
+            progressContainer.addEventListener('click', (e) => {
+                const width = progressContainer.clientWidth;
+                const clickX = e.offsetX;
+                const duration = audio.duration;
+                if(duration) {
+                    audio.currentTime = (clickX / width) * duration;
+                }
+            });
+
+            // Reset button when audio finishes
+            audio.addEventListener('ended', () => {
+                playBtn.innerHTML = '▶';
+                progressBar.style.width = '0%';
+            });
+        });
+    </script>
 </body>
 </html>
